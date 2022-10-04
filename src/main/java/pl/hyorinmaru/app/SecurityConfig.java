@@ -21,26 +21,27 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/" , "/login", "/registry").permitAll()
+                .antMatchers("/", "/main", "/about", "/static/**", "/test2").permitAll()
+                .antMatchers("/login", "/registry").anonymous()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAuthority("ROLE_USER")
                 .anyRequest().denyAll()
                 .and().formLogin()
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/main", true)
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
                 .and().build();
-
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/images/**", "/css/**", "/js/**", "/favicon.ico");
-    }
+
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring().antMatchers("/static/**");
+//    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

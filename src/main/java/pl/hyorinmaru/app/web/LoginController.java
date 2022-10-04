@@ -7,9 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.hyorinmaru.app.domain.User;
+import pl.hyorinmaru.app.domain.UserData;
+import pl.hyorinmaru.app.service.UserDataService;
 import pl.hyorinmaru.app.service.UserService;
 
 import javax.validation.Valid;
@@ -19,8 +20,11 @@ public class LoginController {
 
     private final UserService userService;
 
-    public LoginController(UserService userService) {
+    private final UserDataService userDataService;
+
+    public LoginController(UserService userService, UserDataService userDataService) {
         this.userService = userService;
+        this.userDataService = userDataService;
     }
 
     @GetMapping("/login")
@@ -50,16 +54,21 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             return "registry";
         }
+
+        UserData userData = new UserData(user.getUsername());
+        userDataService.save(userData);
+        user.setUserData(userData);
+
         userService.saveUser(user);
         model.addAttribute("registered" , true);
-        return "loginForm";
+        return "redirect:loginForm";
     }
-
 
     @GetMapping("/test2")
     @ResponseBody
     public String userInfo(@AuthenticationPrincipal UserDetails customUser) {
-//        log.info("customUser class {} " , customUser.getClass());
-        return "You are logged as " + customUser;
+
+        return "You are logged as " + customUser +
+                "\n Username = " + customUser.getUsername();
     }
 }

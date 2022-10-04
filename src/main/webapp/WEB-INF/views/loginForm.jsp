@@ -4,22 +4,11 @@
 <html>
 <head>
   <title>Logowanie</title>
-  <link rel="stylesheet" type="text/css" href="/home/jelen/Desktop/MechanicProject/src/main/resources/static/csstest.css"/>
-  <link rel="stylesheet" type="text/css" href=<c:url value="css/csstest.css"/> />
-  <link rel="stylesheet" href="css/csstest.css" />
-
 </head>
 <body>
-
-
 <div>
   Dont have an accoutn? You can create it <a href="<c:url value="/registry"/>">here</a>
 </div>
-<c:if test="${registered != true}">
-  <div>
-    <p>Account created! Please sign in.</p>
-  </div>
-</c:if>
 <form:form method="post" modelAttribute="user">
   <div>
     <label id="name">Login:</label>

@@ -1,6 +1,7 @@
 package pl.hyorinmaru.app.domain;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -31,11 +32,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @OneToOne
-    private UserDetail userDetails;
+    @OneToOne(fetch = FetchType.EAGER)
+    private UserData userData;
 
-    @OneToMany(mappedBy = "owner")
-    private List<Car> cars;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_cars", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id"))
+    private Set<Car> cars;
 
     public Long getId() {
         return id;
@@ -81,19 +84,19 @@ public class User {
         return active;
     }
 
-    public UserDetail getUserDetails() {
-        return userDetails;
+    public UserData getUserData() {
+        return userData;
     }
 
-    public void setUserDetails(UserDetail userDetails) {
-        this.userDetails = userDetails;
+    public void setUserData(UserData userDetails) {
+        this.userData = userDetails;
     }
 
-    public List<Car> getCars() {
+    public Set<Car> getCars() {
         return cars;
     }
 
-    public void setCars(List<Car> cars) {
+    public void setCars(Set<Car> cars) {
         this.cars = cars;
     }
 }

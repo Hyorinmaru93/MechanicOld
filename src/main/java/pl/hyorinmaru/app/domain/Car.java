@@ -22,7 +22,4 @@ public class Car {
     //Year
     private LocalDate productionDate;
 
-    @ManyToOne
-    private User owner;
-
 }
