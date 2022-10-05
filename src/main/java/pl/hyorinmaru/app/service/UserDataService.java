@@ -13,7 +13,7 @@ public class UserDataService {
         this.userDataRepository = userDataRepository;
     }
 
-    public void save(UserData userData) {
+    public void create(UserData userData) {
         userDataRepository.save(userData);
     }
 
@@ -25,7 +25,7 @@ public class UserDataService {
         return userDataRepository.readUserDataByEmail(email);
     }
 
-    public void updateUserData(UserData userData) { userDataRepository.update(userData, userData.getId());}
+    public void updateUserData(UserData userData) { userDataRepository.update(userData.getFirstName(), userData.getLastName(), userData.getPhoneNumber(), userData.getEmail(), userData.getId());}
 
     public void deleteUserDataById(Long id) {userDataRepository.deleteUserDataById(id);}
 

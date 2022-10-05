@@ -26,7 +26,7 @@ public class UserData {
     @Pattern(regexp = "\\d{9}")
     private String phoneNumber;
 
-    public UserData(){
+    public UserData() {
 
     }
 

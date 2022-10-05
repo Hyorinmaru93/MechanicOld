@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("DBUser")
 public class UserController {
 
     private final UserService userService;
@@ -49,6 +50,9 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "/user/settings";
         }
+        User user = userService.findByUserName(userDetails.getUsername());
+        user.setUserData(userData);
+        model.addAttribute("DBUser", user);
         userDataService.updateUserData(userData);
         return "/user/settings";
     }

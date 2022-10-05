@@ -56,7 +56,7 @@ public class LoginController {
         }
 
         UserData userData = new UserData(user.getUsername());
-        userDataService.save(userData);
+        userDataService.create(userData);
         user.setUserData(userData);
 
         userService.saveUser(user);

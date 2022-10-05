@@ -1,11 +1,9 @@
 package pl.hyorinmaru.app.domain;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 import java.util.Set;
 
 @Entity

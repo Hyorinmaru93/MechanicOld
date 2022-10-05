@@ -7,7 +7,7 @@
     <link href="/static/csstest.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="header.jsp" %>
     <form:form modelAttribute="userData" method="post">
         <form:hidden path="id" />
         First Name: <form:input path="firstName" />
@@ -25,8 +25,5 @@
         <br>
         <input type="submit" value="Submit">
     </form:form>
-
-Oto ten numer ${result}
-
 </body>
 </html>
