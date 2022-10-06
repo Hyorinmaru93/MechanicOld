@@ -4,15 +4,20 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "models")
 public class CarModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String model;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
+    private CarBrand brand;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "model_categories", joinColumns = @JoinColumn(name = "model_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<CarCategory> carCategories;

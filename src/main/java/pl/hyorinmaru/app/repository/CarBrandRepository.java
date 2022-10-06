@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface CarBrandRepository extends JpaRepository <CarBrand, Long> {
 
-//    List<CarBrand> readAll();
+    CarBrand findCarBrandById(Long id);
 }

@@ -6,13 +6,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.hyorinmaru.app.domain.Car;
 import pl.hyorinmaru.app.domain.User;
 import pl.hyorinmaru.app.domain.UserData;
+import pl.hyorinmaru.app.service.CarService;
 import pl.hyorinmaru.app.service.UserDataService;
 import pl.hyorinmaru.app.service.UserService;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -23,14 +26,21 @@ public class UserController {
 
     private final UserDataService userDataService;
 
-    public UserController(UserService userService, UserDataService userDataService) {
+    private final CarService carService;
+
+    public UserController(UserService userService, UserDataService userDataService, CarService carService) {
         this.userService = userService;
         this.userDataService = userDataService;
+        this.carService = carService;
     }
 
     @GetMapping("/main")
-    public String userHomepage() {
-       return "/user/main";
+    public String userHomepage(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        List<Car> cars = carService.readCarByOwner(userService.findByUserName(userDetails.getUsername()));
+        if(cars.size() != 0){
+            model.addAttribute("carList", cars);
+        }
+        return "/user/main";
     }
 
     @GetMapping("/settings")

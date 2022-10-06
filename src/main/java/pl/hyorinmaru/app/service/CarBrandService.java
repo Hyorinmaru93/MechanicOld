@@ -15,7 +15,12 @@ public class CarBrandService {
         this.carBrandRepository = carBrandRepository;
     }
 
-//    public List<CarBrand> readBrands() {
-//        return carBrandRepository.readAll();
-//    }
+    public CarBrand carBrandById (Long id){
+        return carBrandRepository.findCarBrandById(id);
+    }
+
+    public List<CarBrand> findAll(){
+        return carBrandRepository.findAll();
+    }
+
 }

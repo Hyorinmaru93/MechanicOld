@@ -35,7 +35,7 @@
         <li><a href="/user/main">User page</a></li>
         <li><a href="/user/settings">My account</a></li>
         <li><a href="/logout">Logout </a></li>
-        <li><a href="/user/car/add">Car Add</a></li>
+        <li><a href="/user/car/add">Add Car</a></li>
     </c:if>
 
 </ul>

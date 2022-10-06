@@ -2,13 +2,14 @@ package pl.hyorinmaru.app.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     //maker
     private String brand;
@@ -25,14 +26,16 @@ public class Car {
     private String customName;
 
     @ManyToOne
-    @JoinTable(name = "users_cars")
     private User user;
 
-    public long getId() {
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "car")
+//    private List<Assignement> orders;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -83,4 +86,25 @@ public class Car {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", category='" + category + '\'' +
+                ", productionDate=" + productionDate +
+                ", customName='" + customName + '\'' +
+                ", user=" + user.getUsername() +
+                '}';
+    }
+
+//    public List<Assignement> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Assignement> orders) {
+//        this.orders = orders;
+//    }
 }

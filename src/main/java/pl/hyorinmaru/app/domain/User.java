@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,10 +34,11 @@ public class User {
     @OneToOne(fetch = FetchType.EAGER)
     private UserData userData;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "users_cars", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id"))
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Car> cars;
+
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+//    private List<Assignement> orders;
 
     public Long getId() {
         return id;
@@ -97,4 +99,12 @@ public class User {
     public void setCars(Set<Car> cars) {
         this.cars = cars;
     }
+
+//    public List<Assignement> getOrders() {
+//        return orders;
+//    }
+//
+//    public void setOrders(List<Assignement> orders) {
+//        this.orders = orders;
+//    }
 }

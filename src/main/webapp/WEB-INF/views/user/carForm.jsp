@@ -8,25 +8,32 @@
 </head>
 <body>
 <%@include file="header.jsp" %>
-<form:form method="post" modelAttribute="car">
+    <form:form method="post" modelAttribute="car">
     Brand:
     <form:select path="brand">
         <form:options items="${brands}"/>
     </form:select>
     <form:errors path="brand"/>
     <br>
-    Model:<form:input path="model" id="model"/>
+    Model:
+    <form:select path="model">
+        <form:options items="${models}"/>
+    </form:select>
+    <form:errors path="model"/>
+    <br>
+    Category:
+    <form:select path="category">
+        <form:options items="${categories}"/>
+    </form:select>
+    <form:errors path="category"/>
+    <br>
+    Production Date:<form:input type="number" path="productionDate" id="productionDate" min="1900" value="1900" max="2022"/>
     <form:errors path="brand"/>
     <br>
-    Category:<form:input path="category" id="category"/>
+    Custom Name:<form:input path="customName" id="customName" value=""/>
     <form:errors path="brand"/>
     <br>
-    Production Date:<form:input path="productionDate" id="productionDate"/>
-    <form:errors path="brand"/>
-    <br>
-    Custom Name:<form:input path="customName" id="customName"/>
-    <form:errors path="brand"/>
-    <br>
+    <form:hidden path="user" value="${DBUser.id}"/>
     <input type="submit" value="Add">
 </form:form>
 </body>

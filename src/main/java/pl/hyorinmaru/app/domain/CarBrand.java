@@ -1,9 +1,10 @@
 package pl.hyorinmaru.app.domain;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
+@Table(name = "brands")
 public class CarBrand {
 
     @Id
@@ -12,10 +13,8 @@ public class CarBrand {
 
     private String brand;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "brands_models", joinColumns = @JoinColumn(name = "brand_id"),
-    inverseJoinColumns = @JoinColumn(name = "model_id"))
-    private Set<CarModel> carModels;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "brand")
+    private List<CarModel> carModels;
 
     public Long getId() {
         return id;
@@ -33,11 +32,11 @@ public class CarBrand {
         this.brand = brand;
     }
 
-    public Set<CarModel> getCarModels() {
+    public List<CarModel> getCarModels() {
         return carModels;
     }
 
-    public void setCarModels(Set<CarModel> carModels) {
+    public void setCarModels(List<CarModel> carModels) {
         this.carModels = carModels;
     }
 }
